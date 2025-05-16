@@ -171,7 +171,7 @@ const DocChat = () => {
       setIsLoading(true);
 
       // Send request to backend
-      const res = await fetch("http://localhost:5000/api/chat", {
+      const res = await fetch("https://render.com/docs/web-services#port-binding", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
