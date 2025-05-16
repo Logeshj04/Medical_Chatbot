@@ -4,22 +4,29 @@ from openrouter_integration import get_openrouter_response
 
 app = Flask(__name__)
 
-# ✅ Allow CORS only from your frontend domain (update if needed)
-CORS(app, resources={r"/api/*": {"origins": "https://medical-chatbot-1-z06n.onrender.com"}})
+# Allow CORS for your frontend origin
+CORS(app, resources={r"/*": {"origins": "*"}})  # Use "*" for testing. Use specific domain in production
 
 @app.route('/api/chat', methods=['POST', 'OPTIONS'])
 def chat():
     if request.method == 'OPTIONS':
-        # Handle CORS preflight
+        # Handle preflight
         response = app.make_default_options_response()
-        response.headers.add("Access-Control-Allow-Origin", "https://medical-chatbot-1-z06n.onrender.com")
-        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-        response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
+        headers = response.headers
+
+        headers['Access-Control-Allow-Origin'] = '*'
+        headers['Access-Control-Allow-Headers'] = 'Content-Type'
+        headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
         return response
 
     data = request.get_json()
     user_message = data.get('message', '')
-    response = get_openrouter_response(user_message)
+
+    try:
+        response = get_openrouter_response(user_message)
+    except Exception as e:
+        return jsonify({'reply': f"Error: {str(e)}"}), 500
+
     return jsonify({'reply': response})
 
 if __name__ == "__main__":
