@@ -13,5 +13,7 @@ def chat():
     response = get_openrouter_response(user_message)
     return jsonify({'reply': response})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 10000))  # default to 10000 if PORT is not set
+    app.run(host="0.0.0.0", port=port, debug=True)
