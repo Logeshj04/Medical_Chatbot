@@ -171,11 +171,20 @@ const DocChat = () => {
       setIsLoading(true);
 
       // Send request to backend
-      const res = await fetch("https://medical-chatbot-kfbq.onrender.com/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
-      });
+      const res = await fetch('https://medical-chatbot-kfbq.onrender.com/api/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ message: userMessage })
+})
+.then(response => response.json())
+.then(data => {
+  console.log(data.reply);
+})
+.catch(error => {
+  console.error("Error sending message:", error);
+});
 
       if (!res.ok) {
         throw new Error("Failed to fetch response");
