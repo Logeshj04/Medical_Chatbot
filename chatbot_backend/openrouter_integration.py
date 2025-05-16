@@ -33,7 +33,7 @@ def get_openrouter_response(user_message):
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "http://localhost:3000"  # or your deployed frontend URL
+        "HTTP-Referer": "https://medical-chatbot-1-z06n.onrender.com"  # or your deployed frontend URL
     }
 
     payload = {
