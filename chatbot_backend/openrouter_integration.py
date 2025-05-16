@@ -1,9 +1,9 @@
 import os
 import requests
-from dotenv import load_dotenv
+
 
 load_dotenv()
-API_KEY = os.getenv("OPENROUTER_API_KEY")
+API_KEY = "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"
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 medical_rules = """
